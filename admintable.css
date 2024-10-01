@@ -1,0 +1,225 @@
+@import 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet';
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: none;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    background-color: #34495E;
+    color: #f2f2f2;
+}
+
+th {
+    background-color: #34495E;
+    color: #dd5;
+    
+}
+/* From Uiverse.io by Navarog21 */ 
+.mt-4 .col-lg-6 form button input{
+    font-family:'Inter', sans-serif;
+    color: #f2f2f2;
+}
+.mt-4 .col-lg-6 form button {
+    position: relative;
+    width: 11em;
+    height: 4em;
+    outline: none;
+    transition: 0.1s;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ddebf0;
+  }
+  
+  .mt-4 .col-lg-6 #clip {
+    --color: #2761c3;
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border: 5px double var(--color);
+    box-shadow: inset 0px 0px 15px #195480;
+    -webkit-clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  }
+  
+  .mt-4 .col-lg-6 .arrow {
+    position: absolute;
+    transition: 0.2s;
+    background-color: #2761c3;
+    top: 35%;
+    width: 11%;
+    height: 30%;
+  }
+  
+  .mt-4 .col-lg-6 #leftArrow {
+    left: -13.5%;
+    -webkit-clip-path: polygon(100% 0, 100% 100%, 0 50%);
+  }
+  
+  .mt-4 .col-lg-6 #rightArrow {
+    -webkit-clip-path: polygon(100% 49%, 0 0, 0 100%);
+    left: 102%;
+  }
+  
+  .mt-4 .col-lg-6 button:hover #rightArrow {
+    background-color: #27c39f;
+    left: -15%;
+    animation: 0.6s ease-in-out both infinite alternate rightArrow8;
+  }
+  
+  .mt-4 .col-lg-6 button:hover #leftArrow {
+    background-color: #27c39f;
+    left: 103%;
+    animation: 0.6s ease-in-out both infinite alternate leftArrow8;
+  }
+  
+  .mt-4 .col-lg-6 .corner {
+    position: absolute;
+    width: 4em;
+    height: 4em;
+    background-color: #2761c3;
+    box-shadow: inset 1px 1px 8px #2781c3;
+    transform: scale(1) rotate(45deg);
+    transition: 0.2s;
+  }
+  
+  .mt-4 .col-lg-6 #rightTop {
+    top: -1.98em;
+    left: 91%;
+  }
+  
+  .mt-4 .col-lg-6 #leftTop {
+    top: -1.96em;
+    left: -3.0em;
+  }
+  
+  .mt-4 .col-lg-6 #leftBottom {
+    top: 2.10em;
+    left: -2.15em;
+  }
+  
+  .mt-4 .col-lg-6 #rightBottom {
+    top: 45%;
+    left: 88%;
+  }
+  
+  .mt-4 .col-lg-6 button:hover #leftTop {
+    animation: 0.1s ease-in-out 0.05s both changeColor8,
+    0.2s linear 0.4s both lightEffect8;
+  }
+  
+  .mt-4 .col-lg-6  button:hover #rightTop {
+    animation: 0.1s ease-in-out 0.15s both changeColor8,
+    0.2s linear 0.4s both lightEffect8;
+  }
+  
+  .mt-4 .col-lg-6 button:hover #rightBottom {
+    animation: 0.1s ease-in-out 0.25s both changeColor8,
+    0.2s linear 0.4s both lightEffect8;
+  }
+  
+  .mt-4 .col-lg-6 button:hover #leftBottom {
+    animation: 0.1s ease-in-out 0.35s both changeColor8,
+    0.2s linear 0.4s both lightEffect8;
+  }
+  
+  .mt-4 .col-lg-6 button:hover .corner {
+    transform: scale(1.25) rotate(45deg);
+  }
+  
+  .mt-4 .col-lg-6 button:hover #clip {
+    animation: 0.2s ease-in-out 0.55s both greenLight8;
+    --color: #27c39f;
+  }
+  
+  @keyframes changeColor8 {
+    from {
+      background-color: #2781c3;
+    }
+  
+    to {
+      background-color: #27c39f;
+    }
+  }
+  
+  @keyframes lightEffect8 {
+    from {
+      box-shadow: 1px 1px 5px #27c39f;
+    }
+  
+    to {
+      box-shadow: 0 0 2px #27c39f;
+    }
+  }
+  
+  @keyframes greenLight8 {
+    from {
+    }
+  
+    to {
+      box-shadow: inset 0px 0px 32px #27c39f;
+    }
+  }
+  
+  @keyframes leftArrow8 {
+    from {
+      transform: translate(0px);
+    }
+  
+    to {
+      transform: translateX(10px);
+    }
+  }
+  
+  @keyframes rightArrow8 {
+    from {
+      transform: translate(0px);
+    }
+  
+    to {
+      transform: translateX(-10px);
+    }
+  }
+  
+  #tab #tab2 {
+    padding: 1.5rem; /* equivalent to p-3 */
+    overflow-x: auto; /* Ensures table is scrollable if it overflows */
+    max-width: 100%; /* Prevents overflow outside the container */
+    box-sizing: border-box; /* Ensures padding and borders are included in the width calculation */
+  }
+  
+  #tab #tab2 table {
+    width: 100%; /* Makes the table stretch to the container width */
+    border-collapse: collapse; /* Removes spacing between cells */
+    margin-bottom: 1.5rem; /* Adds space between table and the chart */
+  }
+  
+  #tab #tab2 th, #tab #tab2 td {
+    padding: 10px; /* Adds padding to table cells */
+    text-align: center; /* Centers text in cells */
+     /* Optional: border around table cells */
+  }
+  
+  #tab #tab2 th {
+    /* Background color for headers */
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    #tab #tab2 {
+      padding: 1rem;
+    }
+  
+    #tab #tab2 table, #tab #tab2 canvas {
+      width: 100%; /* Ensure both table and canvas take full width on small screens */
+    }
+  }
+  

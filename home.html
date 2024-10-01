@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoLoc Attendance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Your existing styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #00b4db, #0083b0);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+
+        .navbar img {
+            height: 40px;
+            width: 40px;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar ul li a:hover {
+            color: #00b4db;
+        }
+
+        .navbar button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .navbar button:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        #userCard {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f1f1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-avatar img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+        }
+
+        .user-info {
+            text-align: left;
+        }
+
+        .user-info h2 {
+            margin: 0 0 5px 0;
+            font-size: 1.3em;
+        }
+
+        .user-info p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .user-info p i {
+            margin-right: 5px;
+            color: #007bff;
+        }
+
+        #actions button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #checkInBtn {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        #checkOutBtn {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
+        #statusBtnYes {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        #statusBtnNo {
+            background-color: #dc3545;
+            color: #ffffff;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        #contacts {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        #contacts h2 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        #contacts p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        #contacts p i {
+            margin-right: 5px;
+            color: #17a2b8;
+        }
+
+        #contacts p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #777;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .login-register-container {
+            margin-top: 30px;
+        }
+
+        .login-register-container button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+            width: 45%;
+        }
+
+        /* Add a loading screen style */
+        #loadingScreen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <img src="https://via.placeholder.com/40" alt="Logo">
+        <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">News</a></li>
+        </ul>
+        <a href="registration.php" style="list-style-type: none;">
+            <button style='font-size:18px'>Logout <i class='fas fa-power-off'></i></button>
+        </a>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>GeoLoc Attendance</h1>
+        </header>
+
+        <section id="userSection" class="hidden">
+            <div id="userCard">
+                <div class="user-avatar">
+                    <img src="https://via.placeholder.com/150" alt="User Avatar">
+                </div>
+                <div class="user-info">
+                    <h2 id="userName">EmployeeNumber 1</h2>
+                    <p id="userEmail"><i class="fas fa-envelope"></i> user@gmail.com</p>
+                    <p id="userLocation"><i class="fas fa-map-marker-alt"></i> Location: <span id="location"></span></p>
+                    <p id="sessionTime"><i class="fas fa-clock"></i> Session Time: <span id="sessionDuration"></span>
+                    </p>
+                    <p id="activeStatus">
+                        <i class="fas fa-toggle-on"></i> Active Status:
+                        <button id="statusBtnYes" class="hidden">Yes</button>
+                        <button id="statusBtnNo" class="hidden">No</button>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="actions">
+            <button id="checkInBtn" onclick="checkIn()">Check In</button>
+            <button id="checkOutBtn" onclick="checkOut()" class="hidden">Check Out</button>
+            <button id="notEmployeeBtn" onclick="notAnEmployee()">Not an Employee - Contact Admin</button>
+        </section>
+
+        <section id="contacts">
+            <h2>Contacts & Helpline</h2>
+            <p><i class="fas fa-user-shield"></i> Contact Admin: <a href="mailto:admin@example.com">admin@GeoLoc.com</a>
+            </p>
+            <p><i class="fas fa-phone-alt"></i> Helpline: <a href="tel:+1-234-567-890">+1-234-567-890</a></p>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 GeoLoc Attendance</p>
+            <a href="#" style="list-style-type: none;">Terms & conditions</a>
+        </footer>
+    </div>
+    <script>
+        // Your existing script
+        const geoFence = {
+            topLeft: { latitude: 12.0211, longitude: 77.5252 },
+            bottomRight: { latitude: 11.2716, longitude: 77.6083 }
+        };
+
+        let sessionStartTime;
+        let sessionTimer;
+
+        function checkIn() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(validatePosition, showError, { enableHighAccuracy: true });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function validatePosition(position) {
+            const { latitude, longitude } = position.coords;
+
+            console.log(User's latitude: ${latitude});
+            console.log(User's longitude: ${longitude});
+            console.log(Top Left corner: ${ geoFence.topLeft.latitude }, ${ geoFence.topLeft.longitude });
+            console.log(Bottom Right corner: ${ geoFence.bottomRight.latitude }, ${ geoFence.bottomRight.longitude });
+
+            if (isInsideRectangle(latitude, longitude, geoFence.topLeft, geoFence.bottomRight)) {
+                document.getElementById('userSection').classList.remove('hidden');
+                document.getElementById('checkOutBtn').classList.remove('hidden');
+                document.getElementById('checkInBtn').classList.add('hidden');
+                document.getElementById('notEmployeeBtn').classList.add('hidden');
+                document.getElementById('statusBtnYes').classList.remove('hidden');
+                document.getElementById('statusBtnNo').classList.add('hidden');
+
+                document.getElementById('location').innerText = Lat: ${ latitude }, Lon: ${ longitude };
+                sessionStartTime = new Date();
+                startTimer();
+            } else {
+                alert("You are outside the allowed location. Please move within the designated area to check in.");
+            }
+        }
+
+        function isInsideRectangle(lat, lon, topLeft, bottomRight) {
+            return lat <= topLeft.latitude && lat >= bottomRight.latitude &&
+                lon >= topLeft.longitude && lon <= bottomRight.longitude;
+        }
+
+        function startTimer() {
+            sessionTimer = setInterval(() => {
+                const now = new Date();
+                const elapsed = Math.floor((now - sessionStartTime) / 1000);
+                document.getElementById('sessionDuration').innerText = formatTime(elapsed);
+            }, 1000);
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return ${ minutes }m ${ secs } s;
+        }
+
+        function checkOut() {
+            clearInterval(sessionTimer);
+            document.getElementById('checkInBtn').classList.remove('hidden');
+            document.getElementById('checkOutBtn').classList.add('hidden');
+            document.getElementById('statusBtnYes').classList.add('hidden');
+            document.getElementById('statusBtnNo').classList.remove('hidden');
+            document.getElementById('sessionDuration').innerText += ' (Session Ended)';
+        }
+
+        function notAnEmployee() {
+            alert('Please contact admin.');
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("Permission to access location was denied. Please enable location permissions and try again.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable. Please ensure your device's location services are enabled.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get your location timed out. Please try again.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred while trying to retrieve your location.");
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>
