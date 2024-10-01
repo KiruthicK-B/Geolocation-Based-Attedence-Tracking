@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($username === 'admin' && $password === 'admin123') {
             $_SESSION['username'] = $username;
-            header("Location: Admin.php");
+            header("Location: Admin.html");
             exit();
         }
 
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['session_start_time'] = date("Y-m-d H:i:s");
                 echo "<script>alert('Login Successful');
-                window.location.href='index.php';
+                window.location.href='index.html';
                 </script>";
                 exit();
             } else {
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bind_param("sss", $username, $email, $hashedPassword);
                 if ($stmt->execute()) {
                     echo "<script>alert('Registration Successful');
-                    window.location.href='index.php';
+                    window.location.href='index.html';
                     </script>";
                 } else {
                     echo "<script>alert('Error during registration');</script>";
